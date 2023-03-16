@@ -36,6 +36,9 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
         });
+        Route::bind('post', function ($id) {
+            return \App\Models\Post::with(['comments'])->find($id);
+        });
     }
 
     /**

@@ -1,25 +1,24 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import { useForm } from '@inertiajs/react';
+import React from 'react';
 
 export default function Index(props) {
-    const [posts, setPosts] = useState([]);
+    const { posts } = props;
 
-    useEffect(() => {
-        setPosts(props.posts);
-        console.log(props.posts);
-    }, []);
+    const { data, setData, delete: destroy, processing, errors } = useForm({})
 
     const handleClick = async (id) => {
         if(!confirm("Deseja realmente excluir o post?")) return
-        try {
-            let formData = new FormData()
-            formData.append('_method', 'delete')
-            await axios.post(`posts/${id}`, formData)
-            alert('Post excluído com sucesso.')
-            location.reload()
-        } catch (error) {
-            console.log(error)
-        }
+
+        destroy(`posts/${id}`)
+        // try {
+        //     let formData = new FormData()
+        //     formData.append('_method', 'delete')
+        //     await axios.post(`posts/${id}`, formData)
+        //     alert('Post excluído com sucesso.')
+        //     location.reload()
+        // } catch (error) {
+        //     console.log(error)
+        // }
     };
 
   return (
@@ -28,9 +27,6 @@ export default function Index(props) {
         <div className='flex items-center'>
             <h2 className='py-4 text-3xl font-bold'>Postagens</h2>
 
-            {/* <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-4 rounded">
-                Nova Postagem
-            </button> */}
             <a href="posts/create" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-4 rounded">
                 Nova Postagem
             </a>
