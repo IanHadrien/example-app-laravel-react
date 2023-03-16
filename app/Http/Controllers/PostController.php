@@ -28,16 +28,11 @@ class PostController extends Controller
     {
         $data = $request->validated();
         $post = Post::create($data);
-        return response()->json(['post' => $post], 200);
-        // return redirect()->route('Post/Create');
-        // Route::inertia('Post/Create');
-        // ('Post/Create')->with('message', 'Mensagem teste');
+        return Redirect::route('posts.create')->with('message', 'Post criado com sucesso!');
     }
 
     public function show(Post $post)
     {
-        // $comments = Comment::where('commentable_id', $post->id)->get();
-        // Inertia::render('Post/show', ['comments' => $comments]);
         return Inertia::render('Post/Show', ['posts' => $post]);
     }
 
@@ -51,20 +46,22 @@ class PostController extends Controller
         $data = $request->all();
         $post->update($data);
 
-        return response()->json($post, 200);
+        // return response()->json($post, 200);
+        return Redirect::back()->with('message', 'Post atualizado');
     }
     public function comment(StoreCommentsRequest $request, Post $post)
     {
         $data = $request->all();
         $post->comments()->create($data);
 
-        return response()->json($post, 200);
+        return Redirect::route('posts.show', ['post' => $post])->with('message', 'Comentario criado com sucesso!');
     }
 
     public function destroy(Post $post)
     {
         $post->delete();
 
-        return response()->json(['success' => 'Post apagado com sucesso.'], 200);
+        return Redirect::back()->with('message', 'Post apagado com sucesso.');
+        // return Redirect::route('posts.index')->with('message', 'Post apagado com sucesso.');
     }
 }

@@ -28,4 +28,5 @@ use Inertia\Inertia;
 
 Route::resource('/posts', PostController::class);
 Route::resource('/comments', CommentController::class);
+Route::post('/posts/{post}/comments', [PostController::class, 'comment'])->name('posts.comments');
 

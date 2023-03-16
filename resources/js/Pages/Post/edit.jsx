@@ -1,18 +1,20 @@
 import { useForm } from '@inertiajs/react';
+// import { Inertia } from '@inertiajs/inertia';
 import React from 'react';
 
 export default function Create(props) {
     const { post } = props;
 
     const { data, setData, put, processing, errors } = useForm({
-        title: post.title,
-        content: post.content,
+        title: post.title || '',
+        content: post.content || '',
+        // __method: 'put',
     })
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         put(`/posts/${post.id}`);
+        // post(route('posts.update', post.id));
     };
 
   return (

@@ -25,8 +25,8 @@ class StoreCommentsRequest extends FormRequest
     {
         return [
             'content' => 'required|max:255|min:5',
-            'commentable_id' => 'required',
-            'commentable_type' => 'required',
+            'commentable_id' => 'nullable',
+            'commentable_type' => 'nullable',
         ];
     }
 }

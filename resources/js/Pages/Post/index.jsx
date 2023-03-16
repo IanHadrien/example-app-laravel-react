@@ -1,4 +1,5 @@
 import { useForm } from '@inertiajs/react';
+// import { Inertia } from '@inertiajs/inertia';
 import React from 'react';
 
 export default function Index(props) {
@@ -9,16 +10,8 @@ export default function Index(props) {
     const handleClick = async (id) => {
         if(!confirm("Deseja realmente excluir o post?")) return
 
-        destroy(`posts/${id}`)
-        // try {
-        //     let formData = new FormData()
-        //     formData.append('_method', 'delete')
-        //     await axios.post(`posts/${id}`, formData)
-        //     alert('Post excluído com sucesso.')
-        //     location.reload()
-        // } catch (error) {
-        //     console.log(error)
-        // }
+        destroy(`posts/${id}`);
+        // Inertia.delete(route('posts.destroy', posts.id));
     };
 
   return (

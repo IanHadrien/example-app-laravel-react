@@ -2,18 +2,25 @@ import { Link, useForm } from '@inertiajs/react';
 import React from 'react';
 
 export default function Create(props) {
-    const { data, setData, post, processing, errors } = useForm({
+    const { flash } = props
+
+    const { data, setData, post, processing, errors, reset } = useForm({
         title: '',
         content: '',
-    })
+    });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        post('/posts')
+        post('/posts');
+        reset();
     };
 
   return (
     <div className='w-6/12 m-auto'>
+        {flash.message && (
+          <div className="alert">{flash.message}</div>
+        )}
+
         <div className='flex items-center justify-between'>
             <h2 className='py-4 text-3xl font-bold'>Nova Postagens</h2>
 
