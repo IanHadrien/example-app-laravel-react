@@ -29,7 +29,11 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         $data = $request->validated();
+        // dd($data['title']);
         $post = Post::create($data);
+
+        Mail::to('contatoDev@gmail.com')->send(new EmailTestMailable($data));
+
         return Redirect::route('posts.create')->with('message', 'Post criado com sucesso!');
     }
 
@@ -55,8 +59,6 @@ class PostController extends Controller
     {
         $data = $request->all();
         $post->comments()->create($data);
-
-        Mail::to('ianhadrien@gmail.com')->send(new EmailTestMailable);
 
         return Redirect::route('posts.show', ['post' => $post])->with('message', 'Comentario criado com sucesso!');
     }

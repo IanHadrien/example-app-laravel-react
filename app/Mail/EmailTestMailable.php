@@ -15,14 +15,16 @@ class EmailTestMailable extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $data;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($data)
     {
-        //
+        $this->data = $data;
     }
 
     /**
@@ -50,9 +52,11 @@ class EmailTestMailable extends Mailable
     public function content()
     {
         return new Content(
-            // view: 'view.welcome',
-            text: 'emails.orders.shipped-text'
+            view: 'mails.registration',
+            text: ''
         );
+
+        // return $this->view('mails.registration');
 
         // return Inertia::render('Post/Show');
     }

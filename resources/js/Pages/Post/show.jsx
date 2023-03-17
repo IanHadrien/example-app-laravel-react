@@ -1,12 +1,12 @@
-import { useForm, usePage } from '@inertiajs/react';
+import { useForm } from '@inertiajs/react';
 import React from 'react';
 
 export default function Show(props) {
     const { posts, flash } = props;
 
     const { data, setData, post, processing, errors, reset } = useForm({
-        commentable_id: '',
-        commentable_type: '',
+        // commentable_id: '',
+        // commentable_type: '',
         content: '',
     })
 
@@ -14,7 +14,6 @@ export default function Show(props) {
         e.preventDefault();
 
         post(`/posts/${posts.id}/comments`);
-        // post(route('posts.comments', posts.id));
         reset();
     };
 

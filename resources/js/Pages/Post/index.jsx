@@ -1,4 +1,4 @@
-import { useForm } from '@inertiajs/react';
+import { router, useForm } from '@inertiajs/react';
 // import { Inertia } from '@inertiajs/inertia';
 import React from 'react';
 
@@ -10,8 +10,7 @@ export default function Index(props) {
     const handleClick = async (id) => {
         if(!confirm("Deseja realmente excluir o post?")) return
 
-        destroy(`posts/${id}`);
-        // Inertia.delete(route('posts.destroy', posts.id));
+        router.delete(`posts/${id}`);
     };
 
   return (
