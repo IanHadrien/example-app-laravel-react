@@ -6,7 +6,9 @@ use App\Http\Requests\StoreCommentsRequest;
 use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Mail\EmailTestMailable;
 use App\Models\Comment;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -53,6 +55,8 @@ class PostController extends Controller
     {
         $data = $request->all();
         $post->comments()->create($data);
+
+        Mail::to('ianhadrien@gmail.com')->send(new EmailTestMailable);
 
         return Redirect::route('posts.show', ['post' => $post])->with('message', 'Comentario criado com sucesso!');
     }

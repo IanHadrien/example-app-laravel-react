@@ -6,6 +6,7 @@ use App\Http\Controllers\PostController;
 use App\Models\Comments;
 use Illuminate\Support\Facades\Route;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,15 +19,19 @@ use Illuminate\Support\Facades\Route;
 */
 use Inertia\Inertia;
 
-// Route::get('/', function () {
-//     $comments = Comments::all();
-//     return Inertia::render('Home', ['comments' => $comments]);
-//     // return Inertia::render('Home');
-// });
-// Route::get('/comments',[CommentsController::class, 'index']);
-// Route::post('/comments/add', [CommentsController::class, 'store']);
+Route::get('/', function () {
+    $data['name'] = 'Ian Hadrien';
+
+    $pdf = Pdf::loadView('welcome', $data);
+    // return $pdf->download('invoice.pdf');
+    return $pdf->stream();
+
+    // return view('welcome');
+
+    // return Inertia::render('Home');
+    // return Inertia::render('Home');
+});
 
 Route::resource('/posts', PostController::class);
 Route::resource('/comments', CommentController::class);
 Route::post('/posts/{post}/comments', [PostController::class, 'comment'])->name('posts.comments');
-
